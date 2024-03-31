@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="630.0" prefWidth="926.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StatisticsController">
+   <children>
+      <TabPane layoutX="3.0" layoutY="50.0" prefHeight="580.0" prefWidth="920.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Puntos TE">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="271.0" prefWidth="920.0">
+                     <children>
+                        <TableView fx:id="tablePoints" layoutX="18.0" layoutY="14.0" prefHeight="200.0" prefWidth="885.0">
+                          <columns>
+                            <TableColumn fx:id="columnName" prefWidth="216.0" text="Algoritmo" />
+                            <TableColumn fx:id="columnAverage" prefWidth="184.0" text="Promedio (ns)" />
+                              <TableColumn fx:id="columnRank" prefWidth="154.0" text="Rango (ns)" />
+                              <TableColumn fx:id="columnDevitation" prefWidth="176.0" text="Desviacion estandar" />
+                              <TableColumn fx:id="columnVariance" minWidth="0.0" prefWidth="153.0" text="Varianza" />
+                          </columns>
+                        </TableView>
+                        <LineChart fx:id="lineChartPoints" layoutX="386.0" layoutY="228.0" prefHeight="308.0" prefWidth="390.0">
+                          <xAxis>
+                            <CategoryAxis fx:id="sizesMatrixesLineChart" label="Tamaño Matriz NxN" side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis label="Tiempos (ns)" side="LEFT" />
+                          </yAxis>
+                        </LineChart>
+                        <Label alignment="CENTER_RIGHT" layoutX="62.0" layoutY="276.0" prefHeight="140.0" prefWidth="300.0" text="Puntos Tiempo de ejecución de Algoritmo seleccionado vs Tamaño de matriz" wrapText="true">
+                           <font>
+                              <Font name="Century Gothic" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Graficas">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="454.0" prefWidth="920.0">
+                     <children>
+                        <BarChart fx:id="barchartAverages" layoutX="29.0" layoutY="14.0" prefHeight="238.0" prefWidth="531.0" title="Promedios tiempo de ejecución vs Algoritmo">
+                          <xAxis>
+                            <CategoryAxis label="N° Algoritmo" side="BOTTOM" fx:id="xAxisAverages" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis label="Promedio (ns)" side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                        <BarChart fx:id="barChartsortedAverage" layoutX="41.0" layoutY="276.0" prefHeight="248.0" prefWidth="531.0" title="Promedios tiempo de ejecución Ordenado vs Algoritmo Ordenado">
+                           <xAxis>
+                              <CategoryAxis label="N° Algoritmo (Ordenado de menor a mayor)" side="BOTTOM" fx:id="xAxisAveragesSorted" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis label="Promedio (ns)" side="LEFT" />
+                           </yAxis>
+                        </BarChart>
+                        <Separator layoutX="-2.0" layoutY="248.0" prefHeight="0.0" prefWidth="926.0" style="-fx-background-color: gray;" />
+                        <Label layoutX="593.0" layoutY="6.0" prefHeight="103.0" prefWidth="313.0" text="La gráfica muestra la relación entre los promedios obtenidos en los tiempos de ejecución y su correspondiente algoritmo" wrapText="true">
+                           <font>
+                              <Font name="Century Gothic" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="593.0" layoutY="276.0" prefHeight="103.0" prefWidth="313.0" text="La gráfica muestra la relación entre los promedios obtenidos en los tiempos de ejecución y su correspondiente algoritmo, pero ordenados de menor a mayor, según su complejidad" wrapText="true">
+                           <font>
+                              <Font name="Century Gothic" size="16.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnGraphAverageSorted" layoutX="610.0" layoutY="448.0" mnemonicParsing="false" onAction="#graphAverageSorted" style="-fx-background-color: linear-gradient(#85C1E9,#2471A3); -fx-cursor: pointer;" text="Graficar promedios Ordenados" textFill="WHITE">
+                           <font>
+                              <Font name="Century Gothic" size="16.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="btnGraphAverage" layoutX="663.0" layoutY="184.0" mnemonicParsing="false" onAction="#graphAverage" style="-fx-background-color: linear-gradient(#85C1E9,#2471A3); -fx-cursor: pointer;" text="Graficar promedios" textFill="WHITE">
+                           <font>
+                              <Font name="Century Gothic" size="16.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+      <AnchorPane layoutY="-1.0" prefHeight="51.0" prefWidth="926.0" style="-fx-background-color: #000;">
+         <children>
+            <Label layoutX="277.0" layoutY="7.0" text="Estadísticas de algoritmos" textFill="WHITE">
+               <font>
+                  <Font name="Century Gothic" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
