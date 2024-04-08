@@ -820,7 +820,37 @@ public class MatrixAlgorithms {
 	/**
 	 * Método 10: III Enhanced Parallel Block
 	 */
-	public static void IIIEnhancedParallelBlock(int[][] matrizA, int[][] matrizB, int[][] matrizC, int size, int aux1, int aux2) {}
+	public static void IIIEnhancedParallelBlock(int[][] matrizA, int[][] matrizB, int[][] matrizC, int size, int aux1, int aux2) {
+		int bsize = (int) Math.sqrt(size);
+
+		IntStream.range(0, size / 2).parallel().forEach(i1 -> {
+		    for (int j1 = 0; j1 < size; j1 += bsize) {
+		        for (int k1 = 0; k1 < size; k1 += bsize) {
+		            for (int i = i1; i < i1 + bsize && i < size; i++) {
+		                for (int j = j1; j < j1 + bsize && j < size; j++) {
+		                    for (int k = k1; k < k1 + bsize && k < size; k++) {
+		                        matrizC[i][j] += matrizA[i][k] * matrizB[k][j];
+		                    }
+		                }
+		            }
+		        }
+		    }
+		});
+
+		IntStream.range(size / 2, size).parallel().forEach(i1 -> {
+		    for (int j1 = 0; j1 < size; j1 += bsize) {
+		        for (int k1 = 0; k1 < size; k1 += bsize) {
+		            for (int i = i1; i < i1 + bsize && i < size; i++) {
+		                for (int j = j1; j < j1 + bsize && j < size; j++) {
+		                    for (int k = k1; k < k1 + bsize && k < size; k++) {
+		                        matrizC[i][j] += matrizA[i][k] * matrizB[k][j];
+		                    }
+		                }
+		            }
+		        }
+		    }
+		});
+	}
 
 	/**
 	 * Método 11: iv3SequentialBlock
@@ -867,7 +897,38 @@ public class MatrixAlgorithms {
 	/**
 	 * Método 13: IV Enhanced Parallel Block
 	 */
-	public static void IVEnhancedParallelBlock(int[][] matrizA, int[][] matrizB, int[][] matrizC, int size, int aux1, int aux2) {}
+	public static void IVEnhancedParallelBlock(int[][] matrizA, int[][] matrizB, int[][] matrizC, int size, int aux1, int aux2) {
+
+		int bsize = (int) Math.sqrt(size);
+
+		IntStream.range(0, size / 2).parallel().forEach(i1 -> {
+		    for (int j1 = 0; j1 < size; j1 += bsize) {
+		        for (int k1 = 0; k1 < size; k1 += bsize) {
+		            for (int i = i1; i < i1 + bsize && i < size; i++) {
+		                for (int j = j1; j < j1 + bsize && j < size; j++) {
+		                    for (int k = k1; k < k1 + bsize && k < size; k++) {
+		                        matrizC[i][k] += matrizA[i][j] * matrizB[j][k];
+		                    }
+		                }
+		            }
+		        }
+		    }
+		});
+
+		IntStream.range(size / 2, size).parallel().forEach(i1 -> {
+		    for (int j1 = 0; j1 < size; j1 += bsize) {
+		        for (int k1 = 0; k1 < size; k1 += bsize) {
+		            for (int i = i1; i < i1 + bsize && i < size; i++) {
+		                for (int j = j1; j < j1 + bsize && j < size; j++) {
+		                    for (int k = k1; k < k1 + bsize && k < size; k++) {
+		                        matrizC[i][k] += matrizA[i][j] * matrizC[j][k];
+		                    }
+		                }
+		            }
+		        }
+		    }
+		});
+	}
 
 	/**
 	 * Método 14: v3SequentialBlock
