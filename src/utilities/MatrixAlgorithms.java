@@ -6,6 +6,11 @@ import java.util.stream.IntStream;
 public class MatrixAlgorithms {
 	/**
 	 * Método 1: NaivOnArray
+	 * Este algoritmo llamado "NaivOnArray" realiza la multiplicación
+	 * de matrices utilizando un método ingenuo. Recorre cada elemento
+	 * de la matriz resultante (matrizC) y calcula su valor
+	 * sumando los productos de los elementos correspondientes
+	 * de las filas de la matriz A y las columnas de la matriz B.
 	 */
     public static void NaivOnArray(int[][] matrizA, int[][] matrizB, int[][] matrizC, int N, int P , int M){
         for (int i = 0; i < N; i++) {
@@ -20,6 +25,11 @@ public class MatrixAlgorithms {
 
     /**
      * Método 2: NaivLoopUnrollingTwo
+     * Las multiplicaciones se suman a la variable auxiliar,
+     * que luego se asigna a la posición correspondiente en
+     * la matriz C. posición correspondiente en la matriz C.
+     * Esto se hace para garantizar que todos los elementos
+     * de la matriz C se cuenten correctamente
      */
     public static void NaivLoopUnrollingTwo(int[][] matrizA, int[][] matrizB, int[][] matrizC, int N, int P, int M) {
         int i, j, k;
@@ -51,6 +61,13 @@ public class MatrixAlgorithms {
 
     /**
      * Método 3: NaivLoopUnrollingFour
+		Este algoritmo "NaivLoopUnrollingFour" multiplica matrices
+		mediante desenrollado de bucles por cuatro. Divide
+		la multiplicación en bloques de cuatro elementos y
+		los calcula en paralelo para mejorar la eficiencia
+		de los procesadores modernos. Si el intervalo (P) es divisible por 4,
+		haz la multiplicación como de costumbre. Si este no es el caso, realice
+		un procesamiento especial para garantizar que todos los elementos se calculen correctamente.
      */
     public static void NaivLoopUnrollingFour(int[][] A, int[][] B, int[][] Result, int N, int P, int M) {
         int i, j, k;
@@ -113,6 +130,12 @@ public class MatrixAlgorithms {
 
     /**
      * Método 4: WinogradOriginal
+     * Este algoritmo, "WinogradOriginal", emplea el algoritmo
+     * de multiplicación de matrices de Winograd para optimizar
+     * la eficiencia de la multiplicación de matrices.
+     * Calcula valores auxiliares para las matrices de entrada,
+     * reduce la cantidad de operaciones durante la multiplicación y,
+     * si es necesario, realiza ajustes adicionales para garantizar la precisión.
      */
     public static void WinogradOriginal(int[][] A, int[][] B, int[][] Result, int N, int P, int M) {
         int i, j, k;
@@ -181,6 +204,16 @@ public class MatrixAlgorithms {
 
     /**
      * Método 5: WinogradScaled
+     * Este algoritmo "WinogradScaled" mejora la multiplicación de matrices mediante
+     * el uso de una versión escalada del algoritmo Winograd.
+	   Escalado de matriz:
+
+	   Calcula la norma infinita de las matrices de entrada para determinar el factor de escala.
+	   Cree copias de matrices escaladas según este factor.
+	   Multiplicación escalar:
+	   Define una función que multiplica una matriz por un escalar.
+	   Multiplicación de matrices escalares con Winograd:
+	   Utiliza la implementación original del algoritmo de Winograd para multiplicar matrices escalares.
      */
     public static void WinogradScaled(int[][] A, int[][] B, int[][] Result, int N, int P, int M) {
         /* Create scaled copies of A and B */
@@ -223,6 +256,14 @@ public class MatrixAlgorithms {
 
     /**
      * Método 6: StrassenNaiv
+     * El algoritmo "StrassenNaiv" simplifica el método
+     * de Strassen para multiplicar matrices. Comienza determinando
+     * el tamaño máximo de las matrices y ajustándolas para que sean
+     * cuadradas y tengan dimensiones potencias de 2. Luego, divide
+     * las matrices en submatrices más pequeñas y las multiplica utilizando
+     *  el algoritmo de Strassen. Después, recomponen los resultados en una
+     *  matriz de salida. Si las matrices son lo suficientemente pequeñas,
+		emplea el método estándar de multiplicación.
      */
     public static void StrassenNaiv(int[][] matrizA, int[][] matrizB, int[][] matrizC, int N, int P, int M) {
 
@@ -520,6 +561,15 @@ public class MatrixAlgorithms {
 
 	/**
      * Método 7: StrassenWinograd
+     * El método "StrassenWinograd" implementa una variante
+     * del algoritmo de Strassen para multiplicar matrices.
+     * Comienza ajustando las dimensiones de las matrices de
+     * entrada para que sean cuadradas y potencias de 2.
+     * Luego, divide las matrices en submatrices más pequeñas
+     * y las multiplica recursivamente utilizando una versión
+     * modificada del algoritmo de Strassen. Después, recomponen
+     * los resultados en una matriz de salida. Si las matrices
+     * son lo suficientemente pequeñas, emplea el método estándar de multiplicación.
      */
     public static void StrassenWinograd(int[][] matrizA, int[][] matrizB, int[][] matrizC, int N, int P, int M) {
 
@@ -775,6 +825,22 @@ public class MatrixAlgorithms {
 
     /**
 	 * Método 8: iii3SequentialBlock
+	 * El método "IIISequentialBlock" implementa la
+	 * multiplicación de matrices mediante un
+	 * enfoque de bloque secuencial, dividiendo
+	 * las matrices de entrada en bloques y
+	 * realizando multiplicaciones dentro de estos bloques.
+	 * Comienza calculando el tamaño de cada bloque como
+	 * la raíz cuadrada del tamaño de las matrices y luego
+	 * itera sobre los bloques en las matrices de entrada,
+	 * calculando el producto punto entre las submatrices
+	 * correspondientes de la matriz A y la matriz B.
+	 * Este método busca mejorar el rendimiento al reducir
+	 * la necesidad de acceder repetidamente a los elementos
+	 * de las matrices grandes en la memoria principal,
+	 * aprovechando la localidad de los datos, aunque
+	 * introduce una sobrecarga adicional debido a los bucles
+	 * adicionales y la gestión de los límites de los bloques.
 	 */
 	public static void IIISequentialBlock(int[][] matrizA, int[][] matrizB, int[][] matrizC, int size, int aux1, int aux2){
 		int bsize = (int) Math.sqrt(size);
@@ -796,6 +862,20 @@ public class MatrixAlgorithms {
 
 	/**
 	 * Método 9: iii4ParallelBlock
+	 * El método "IIIParallelBlock" también implementa
+	 * la multiplicación de matrices mediante un enfoque
+	 * de bloque, pero en paralelo utilizando Streams de Java.
+	 * Divide las matrices de entrada en bloques del mismo
+	 *  tamaño calculado como la raíz cuadrada del tamaño
+	 *  total de las matrices. Luego, utiliza un bucle paralelo
+	 *  para iterar sobre estos bloques, calculando el producto
+	 *  punto entre las submatrices correspondientes de la matriz
+	 *  A y la matriz B. Este enfoque busca mejorar el rendimiento
+	 *  al aprovechar el paralelismo de múltiples núcleos de la
+	 *  CPU para realizar cálculos simultáneos en los bloques de las matrices,
+		reduciendo así el tiempo total de ejecución. Sin embargo, puede introducir
+		cierta complejidad adicional debido a la necesidad de manejar la concurrencia
+		y la sincronización de los datos compartidos entre los hilos de ejecución.
 	 */
 	public static void IIIParallelBlock(int[][] matrizA, int[][] matrizB, int[][] matrizC, int size, int aux1, int aux2){
 		int bsize = (int) Math.sqrt(size);
@@ -819,6 +899,21 @@ public class MatrixAlgorithms {
 
 	/**
 	 * Método 10: III Enhanced Parallel Block
+	 * El método "IIIEnhancedParallelBlock" realiza la multiplicación
+	 * de matrices utilizando un enfoque de bloque paralelo mejorado.
+	 * Divide las matrices de entrada en bloques del mismo tamaño,
+	 * calculado como la raíz cuadrada del tamaño total de las matrices.
+	 * Luego, utiliza dos flujos paralelos de IntStream para distribuir
+	 * el trabajo entre múltiples hilos de ejecución de manera más eficiente.
+	 * Cada flujo de IntStream aborda la mitad de las filas de la matriz C.
+	 * Dentro de cada iteración de estos flujos paralelos, se realiza el
+	 * cálculo del producto punto entre las submatrices correspondientes
+	 * de la matriz A y la matriz B. Esto permite aprovechar el paralelismo
+	 * de múltiples núcleos de la CPU para realizar cálculos simultáneos
+	 * en diferentes partes de las matrices, reduciendo así el tiempo total
+	 * de ejecución. Sin embargo, este enfoque puede introducir cierta
+	 * complejidad adicional debido a la necesidad de manejar la concurrencia
+	 * y la sincronización de los datos compartidos entre los hilos de ejecución.
 	 */
 	public static void IIIEnhancedParallelBlock(int[][] matrizA, int[][] matrizB, int[][] matrizC, int size, int aux1, int aux2) {
 		int bsize = (int) Math.sqrt(size);
@@ -854,6 +949,19 @@ public class MatrixAlgorithms {
 
 	/**
 	 * Método 11: iv3SequentialBlock
+	 * El método "IVSequentialBlock" implementa la multiplicación
+	 * de matrices utilizando un enfoque secuencial de bloques.
+	 * Divide las matrices de entrada en bloques cuadrados del
+	 * mismo tamaño, calculado como la raíz cuadrada del tamaño
+	 * total de las matrices. Luego, utiliza cuatro bucles
+	 * anidados para recorrer los bloques de las matrices A, B y C.
+	 * En cada iteración de los bucles, se calcula el producto
+	 * punto entre los elementos correspondientes de las submatrices
+	 * de A y B y se acumula en la submatriz correspondiente de C.
+	 * Este enfoque aprovecha la localidad de los datos y reduce
+	 * los accesos a la memoria al operar con bloques de datos contiguos,
+	 * lo que puede mejorar el rendimiento en comparación con un enfoque
+		ingenuo que opera directamente en elementos individuales de las matrices.
 	 */
 	public static void IVSequentialBlock(int[][] matrizA, int[][] matrizB, int[][] matrizC, int size, int aux1, int aux2){
 		int bsize = (int) Math.sqrt(size);
@@ -875,6 +983,19 @@ public class MatrixAlgorithms {
 
 	/**
 	 * Método 12: iv4ParallelBlock
+	 * El método "IVParallelBlock" implementa la multiplicación de
+	 * matrices utilizando un enfoque paralelo de bloques.
+	 * Divide las matrices de entrada en bloques cuadrados
+	 * del mismo tamaño, calculado como la raíz cuadrada del
+	 * tamaño total de las matrices. Luego, utiliza un bucle
+	 * paralelo para recorrer los bloques de la matriz A.
+	 * Dentro de este bucle, se ejecutan cuatro bucles anidados
+	 * para recorrer los bloques de las matrices A, B y C,
+	 * calculando el producto punto entre los elementos correspondientes
+	 * de las submatrices de A y B y acumulándolo en la submatriz
+	 * correspondiente de C. Este enfoque paralelo puede mejorar
+	 * el rendimiento al procesar múltiples bloques de datos simultáneamente,
+	 * aprovechando así mejor los recursos del sistema.
 	 */
 	public static void IVParallelBlock(int[][] matrizA, int[][] matrizB, int[][] matrizC, int size, int aux1, int aux2){
 		int bsize = (int) Math.sqrt(size);
@@ -896,6 +1017,20 @@ public class MatrixAlgorithms {
 
 	/**
 	 * Método 13: IV Enhanced Parallel Block
+	 * El método "IVEnhancedParallelBlock" implementa una
+	 * multiplicación de matrices utilizando un enfoque
+	 * paralelo mejorado de bloques. Divide las matrices
+	 * de entrada en bloques cuadrados del mismo tamaño,
+	 * calculado como la raíz cuadrada del tamaño total de las matrices.
+	 * Luego, utiliza dos flujos de enteros paralelos para procesar
+	 * las mitades de las filas de la matriz C. Dentro de cada flujo,
+	 * se ejecutan cuatro bucles anidados para recorrer los bloques de
+	 * las matrices A, B y C, calculando el producto punto entre
+	 * los elementos correspondientes de las submatrices de A y B y
+	 * acumulándolo en la submatriz correspondiente de C.
+	 * Este enfoque paralelo mejorado puede proporcionar un mejor
+	 * rendimiento al distribuir la carga de trabajo entre múltiples
+	 * subprocesos y aprovechar al máximo los recursos del sistema.
 	 */
 	public static void IVEnhancedParallelBlock(int[][] matrizA, int[][] matrizB, int[][] matrizC, int size, int aux1, int aux2) {
 
@@ -932,6 +1067,17 @@ public class MatrixAlgorithms {
 
 	/**
 	 * Método 14: v3SequentialBlock
+	 * El método "VSequentialBlock" implementa la multiplicación de
+	 * matrices utilizando un enfoque secuencial basado en bloques.
+	 * Divide las matrices de entrada en bloques cuadrados del mismo
+	 * tamaño, calculado como la raíz cuadrada del tamaño total
+	 * de las matrices. Luego, utiliza cuatro bucles anidados para
+	 * recorrer los bloques de las matrices A, B y C, calculando
+	 * el producto punto entre los elementos correspondientes de
+	 * las submatrices de A y B y acumulándolo en la submatriz
+	 * correspondiente de C. Este enfoque secuencial basado en bloques
+	 * puede mejorar el rendimiento al reducir la carga de trabajo
+	 * de los bucles internos y aprovechar la localidad de datos.
 	 */
 	public static void VSequentialBlock(int[][] matrizA, int[][] matrizB, int[][] matrizC, int size, int aux1, int aux2){
 		int bsize = (int) Math.sqrt(size);
@@ -953,6 +1099,18 @@ public class MatrixAlgorithms {
 
 	/**
 	 * Método 15: v4ParallelBlock
+	 * El método "VParallelBlock" implementa una versión
+	 * paralela del algoritmo de multiplicación de matrices
+	 * basado en bloques. Utiliza el framework de Streams de
+	 * Java para distribuir el trabajo en múltiples hilos.
+	 * Divide las matrices de entrada en bloques cuadrados
+	 * del mismo tamaño, calculado como la raíz cuadrada del
+	 * tamaño total de las matrices. Luego, utiliza cinco
+	 * bucles anidados para recorrer los bloques de las matrices A, B y C,
+	 * calculando el producto punto entre los elementos correspondientes
+	 * de las submatrices de A y B y acumulándolo en la submatriz correspondiente de C.
+	 * Este enfoque paralelo puede mejorar el rendimiento al ejecutar múltiples
+	 * cálculos simultáneamente en diferentes hilos, aprovechando así mejor los recursos del procesador.
 	 */
 	public static void VParallelBlock(int[][] matrizA, int[][] matrizB, int[][] matrizC, int size, int aux1, int aux2){
 
